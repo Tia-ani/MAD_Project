@@ -1,6 +1,6 @@
 1. Project Title: Inclusive Public Transit Navigator
 
-2. Your Name & Roll Number: Anishka Khurana - 2024-B-24082006A
+2. Name & Roll Number: Anishka Khurana - 2024-B-24082006A
 
 3. Problem Statement: Public transportation systems often lack reliable, real-time information regarding accessibility for people with disabilities. Issues like broken elevators, blocked ramps, or the absence of audio cues can make navigating transit a frustrating and sometimes impossible task. This project aims to bridge the information gap, empowering individuals with disabilities to travel with greater confidence and independence.
 
