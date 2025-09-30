@@ -140,6 +140,25 @@ export default function StationDetails({ route, navigation }) {
         </TouchableOpacity>
       </View>
 
+      {/* Find Accessible Routes Button */}
+      <TouchableOpacity 
+        style={[styles.button, styles.accessibleRoutesButton]}
+        onPress={() => navigation.navigate('Route Planner', { 
+          destination: station.name,
+          accessibilityFilters: {
+            wheelchair: station.accessibility.wheelchair,
+            elevators: station.accessibility.elevators,
+            audioAnnouncements: station.accessibility.audioAnnouncements,
+            brailleSignage: station.accessibility.brailleSignage,
+          }
+        })}
+        accessible={true}
+        accessibilityLabel="Find accessible routes to this station with matching accessibility features"
+      >
+        <Ionicons name="accessibility" size={20} color="white" />
+        <Text style={styles.buttonText}>Find Accessible Routes</Text>
+      </TouchableOpacity>
+
       {/* Emergency Button */}
       <TouchableOpacity 
         style={[styles.button, styles.emergencyButton]}
@@ -255,6 +274,10 @@ const styles = StyleSheet.create({
   },
   directionsButton: {
     backgroundColor: '#2b8a3e',
+  },
+  accessibleRoutesButton: {
+    backgroundColor: '#6f42c1',
+    marginBottom: 16,
   },
   emergencyButton: {
     backgroundColor: '#fd7e14',

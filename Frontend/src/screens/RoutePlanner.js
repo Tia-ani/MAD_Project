@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { AccessibilityContext } from '../context/AccessibilityContext';
@@ -15,6 +15,13 @@ export default function RoutePlanner({ route }) {
   });
   const [routeResult, setRouteResult] = useState(null);
   const { settings } = useContext(AccessibilityContext);
+
+  // Set accessibility filters when passed from StationDetails
+  useEffect(() => {
+    if (route?.params?.accessibilityFilters) {
+      setAccessibilityFilters(route.params.accessibilityFilters);
+    }
+  }, [route?.params?.accessibilityFilters]);
 
   const findAccessibleRoute = () => {
     if (!start.trim() || !end.trim()) {
