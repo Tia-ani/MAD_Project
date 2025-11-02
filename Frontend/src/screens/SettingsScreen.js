@@ -185,7 +185,8 @@ export default function SettingsScreen({ navigation }) {
             Created by: Anishka Khurana
           </Text>
           <Text style={[styles.aboutCredit, settings.largeText && styles.largeAboutCredit]}>
-            Roll Number: 2024-B-24082006A
+            URN-Number: 2024-B-24082006A
+            Batch: Turing 
           </Text>
         </View>
       </View>
