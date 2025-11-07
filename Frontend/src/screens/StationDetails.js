@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Speech from 'expo-speech';
+import { CommonActions } from '@react-navigation/native';
 import { AccessibilityContext } from '../context/AccessibilityContext';
 
 export default function StationDetails({ route, navigation }) {
@@ -131,7 +132,15 @@ export default function StationDetails({ route, navigation }) {
 
         <TouchableOpacity 
           style={[styles.button, styles.directionsButton]}
-          onPress={() => navigation.navigate('Route Planner', { destination: station.name })}
+          onPress={() => {
+            // Navigate to Route Planner tab
+            navigation.dispatch(
+              CommonActions.navigate({
+                name: 'Route Planner',
+                params: { destination: station.name },
+              })
+            );
+          }}
           accessible={true}
           accessibilityLabel="Get directions to this station"
         >
@@ -143,15 +152,23 @@ export default function StationDetails({ route, navigation }) {
       {/* Find Accessible Routes Button */}
       <TouchableOpacity 
         style={[styles.button, styles.accessibleRoutesButton]}
-        onPress={() => navigation.navigate('Route Planner', { 
-          destination: station.name,
-          accessibilityFilters: {
-            wheelchair: station.accessibility.wheelchair,
-            elevators: station.accessibility.elevators,
-            audioAnnouncements: station.accessibility.audioAnnouncements,
-            brailleSignage: station.accessibility.brailleSignage,
-          }
-        })}
+        onPress={() => {
+          // Navigate to Route Planner tab with filters
+          navigation.dispatch(
+            CommonActions.navigate({
+              name: 'Route Planner',
+              params: {
+                destination: station.name,
+                accessibilityFilters: {
+                  wheelchair: station.accessibility.wheelchair,
+                  elevators: station.accessibility.elevators,
+                  audioAnnouncements: station.accessibility.audioAnnouncements,
+                  brailleSignage: station.accessibility.brailleSignage,
+                }
+              },
+            })
+          );
+        }}
         accessible={true}
         accessibilityLabel="Find accessible routes to this station with matching accessibility features"
       >

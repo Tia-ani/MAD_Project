@@ -1,10 +1,32 @@
 import React, { useContext } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Switch } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Switch, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { AccessibilityContext } from '../context/AccessibilityContext';
+import { useAuth } from '../context/AuthContext';
 
 export default function SettingsScreen({ navigation }) {
   const { settings, updateSettings } = useContext(AccessibilityContext);
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          style: 'destructive',
+          onPress: () => {
+            logout();
+          },
+        },
+      ]
+    );
+  };
 
   const SettingItem = ({ icon, title, description, value, onValueChange, type = 'switch' }) => (
     <View style={styles.settingItem}>
@@ -158,6 +180,33 @@ export default function SettingsScreen({ navigation }) {
             </Text>
             <Text style={[styles.settingDescription, settings.largeText && styles.largeSettingDescription]}>
               Quick access to emergency services
+            </Text>
+          </View>
+          <Ionicons name="chevron-forward" size={24} color="#999" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Account */}
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle, settings.largeText && styles.largeSectionTitle]}>
+          Account
+        </Text>
+
+        <TouchableOpacity
+          style={styles.settingItem}
+          onPress={handleLogout}
+          accessible={true}
+          accessibilityLabel="Logout from your account"
+        >
+          <View style={[styles.settingIcon, { backgroundColor: '#ffe0e0' }]}>
+            <Ionicons name="log-out-outline" size={24} color="#dc3545" />
+          </View>
+          <View style={styles.settingContent}>
+            <Text style={[styles.settingTitle, settings.largeText && styles.largeSettingTitle]}>
+              Logout
+            </Text>
+            <Text style={[styles.settingDescription, settings.largeText && styles.largeSettingDescription]}>
+              Sign out of your account
             </Text>
           </View>
           <Ionicons name="chevron-forward" size={24} color="#999" />
