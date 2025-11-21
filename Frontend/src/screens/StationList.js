@@ -1,16 +1,36 @@
-import React, { useState, useContext } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import React, { useState, useContext, useEffect } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, TextInput, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { AccessibilityContext } from '../context/AccessibilityContext';
 import { stationsData } from '../data/stationsData';
+import { getStationsWithFallback } from '../services/api';
 
 export default function StationList({ navigation }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('all');
+  const [stations, setStations] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { settings } = useContext(AccessibilityContext);
 
+  useEffect(() => {
+    loadStations();
+  }, []);
+
+  const loadStations = async () => {
+    try {
+      setLoading(true);
+      const fetchedStations = await getStationsWithFallback(stationsData);
+      setStations(fetchedStations);
+    } catch (error) {
+      console.error('Error loading stations:', error);
+      setStations(stationsData); // Fallback to local data
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const getFilteredStations = () => {
-    let filtered = stationsData.filter(station =>
+    let filtered = stations.filter(station =>
       station.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       station.description.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -152,13 +172,22 @@ export default function StationList({ navigation }) {
       </View>
 
       {/* Station List */}
-      <FlatList
-        data={getFilteredStations()}
-        renderItem={renderStation}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.listContainer}
-        showsVerticalScrollIndicator={false}
-      />
+      {loading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#2b8a3e" />
+          <Text style={styles.loadingText}>Loading stations...</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={getFilteredStations()}
+          renderItem={renderStation}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.listContainer}
+          showsVerticalScrollIndicator={false}
+          refreshing={false}
+          onRefresh={loadStations}
+        />
+      )}
     </View>
   );
 }
@@ -271,5 +300,16 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#dc3545',
     fontWeight: '500',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 50,
+  },
+  loadingText: {
+    marginTop: 16,
+    fontSize: 16,
+    color: '#666',
   },
 });

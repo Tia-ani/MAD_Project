@@ -184,6 +184,26 @@ export default function SettingsScreen({ navigation }) {
           </View>
           <Ionicons name="chevron-forward" size={24} color="#999" />
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.settingItem}
+          onPress={() => navigation.navigate('Profile')}
+          accessible={true}
+          accessibilityLabel="View and edit your profile"
+        >
+          <View style={styles.settingIcon}>
+            <Ionicons name="person" size={24} color="#2b8a3e" />
+          </View>
+          <View style={styles.settingContent}>
+            <Text style={[styles.settingTitle, settings.largeText && styles.largeSettingTitle]}>
+              Profile
+            </Text>
+            <Text style={[styles.settingDescription, settings.largeText && styles.largeSettingDescription]}>
+              View and edit your profile information
+            </Text>
+          </View>
+          <Ionicons name="chevron-forward" size={24} color="#999" />
+        </TouchableOpacity>
       </View>
 
       {/* Account */}

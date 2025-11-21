@@ -17,6 +17,7 @@ import RoutePlanner from './src/screens/RoutePlanner';
 import StationList from './src/screens/StationList';
 import EmergencyScreen from './src/screens/EmergencyScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -81,6 +82,11 @@ function SettingsStack() {
         component={EmergencyScreen}
         options={{ title: 'Emergency Contacts' }}
       />
+      <Stack.Screen 
+        name="Profile" 
+        component={ProfileScreen}
+        options={{ title: 'Profile' }}
+      />
     </Stack.Navigator>
   );
 }
@@ -143,7 +149,7 @@ function MainTabsNavigator() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
+          let iconName = 'help-outline'; // Default icon
 
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
@@ -153,6 +159,8 @@ function MainTabsNavigator() {
             iconName = focused ? 'train' : 'train-outline';
           } else if (route.name === 'Route Planner') {
             iconName = focused ? 'navigate' : 'navigate-outline';
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'person' : 'person-outline';
           } else if (route.name === 'Settings') {
             iconName = focused ? 'settings' : 'settings-outline';
           }
@@ -192,6 +200,11 @@ function MainTabsNavigator() {
         name="Route Planner" 
         component={RoutePlannerStack}
         options={{ tabBarLabel: 'Routes' }}
+      />
+      <Tab.Screen 
+        name="Profile" 
+        component={ProfileScreen}
+        options={{ tabBarLabel: 'Profile' }}
       />
       <Tab.Screen 
         name="Settings" 

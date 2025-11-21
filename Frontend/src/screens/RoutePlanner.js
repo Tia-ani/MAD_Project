@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { AccessibilityContext } from '../context/AccessibilityContext';
 import { stationsData } from '../data/stationsData';
+import { getStationsWithFallback } from '../services/api';
 
 export default function RoutePlanner({ route }) {
   const [start, setStart] = useState('');
@@ -14,7 +15,26 @@ export default function RoutePlanner({ route }) {
     brailleSignage: false,
   });
   const [routeResult, setRouteResult] = useState(null);
+  const [stations, setStations] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { settings } = useContext(AccessibilityContext);
+
+  useEffect(() => {
+    loadStations();
+  }, []);
+
+  const loadStations = async () => {
+    try {
+      setLoading(true);
+      const fetchedStations = await getStationsWithFallback(stationsData);
+      setStations(fetchedStations);
+    } catch (error) {
+      console.error('Error loading stations:', error);
+      setStations(stationsData); // Fallback to local data
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Set accessibility filters when passed from StationDetails
   useEffect(() => {
@@ -29,10 +49,10 @@ export default function RoutePlanner({ route }) {
       return;
     }
 
-    const startStation = stationsData.find(s => 
+    const startStation = stations.find(s => 
       s.name.toLowerCase().includes(start.toLowerCase())
     );
-    const endStation = stationsData.find(s => 
+    const endStation = stations.find(s => 
       s.name.toLowerCase().includes(end.toLowerCase())
     );
 
@@ -40,7 +60,7 @@ export default function RoutePlanner({ route }) {
       Alert.alert('Error', 'Could not find one or both stations. Please check station names.');
       setRouteResult({
         error: true,
-        message: '⚠️ Station not found. Available stations: ' + stationsData.map(s => s.name).join(', ')
+        message: '⚠️ Station not found. Available stations: ' + stations.map(s => s.name).join(', ')
       });
       return;
     }
@@ -125,6 +145,15 @@ export default function RoutePlanner({ route }) {
       </Text>
     </TouchableOpacity>
   );
+
+  if (loading) {
+    return (
+      <View style={[styles.container, styles.loadingContainer]}>
+        <ActivityIndicator size="large" color="#2b8a3e" />
+        <Text style={styles.loadingText}>Loading stations...</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -576,5 +605,16 @@ const styles = StyleSheet.create({
   },
   largeErrorText: {
     fontSize: 16,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 50,
+  },
+  loadingText: {
+    marginTop: 16,
+    fontSize: 16,
+    color: '#666',
   },
 });

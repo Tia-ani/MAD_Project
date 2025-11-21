@@ -1,15 +1,35 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { StyleSheet, View, Dimensions, Alert, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, Dimensions, Alert, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { AccessibilityContext } from '../context/AccessibilityContext';
 import { stationsData } from '../data/stationsData';
+import { getStationsWithFallback } from '../services/api';
 
 export default function MapScreen({ navigation }) {
   const [location, setLocation] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [stations, setStations] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { settings } = useContext(AccessibilityContext);
+
+  useEffect(() => {
+    loadStations();
+  }, []);
+
+  const loadStations = async () => {
+    try {
+      setLoading(true);
+      const fetchedStations = await getStationsWithFallback(stationsData);
+      setStations(fetchedStations);
+    } catch (error) {
+      console.error('Error loading stations:', error);
+      setStations(stationsData); // Fallback to local data
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -25,9 +45,9 @@ export default function MapScreen({ navigation }) {
   }, []);
 
   const getFilteredStations = () => {
-    if (selectedFilter === 'all') return stationsData;
+    if (selectedFilter === 'all') return stations;
     
-    return stationsData.filter(station => {
+    return stations.filter(station => {
       switch (selectedFilter) {
         case 'wheelchair':
           return station.accessibility.wheelchair;
@@ -47,6 +67,15 @@ export default function MapScreen({ navigation }) {
     if (station.accessibility.wheelchair) return 'orange';
     return 'red';
   };
+
+  if (loading) {
+    return (
+      <View style={[styles.container, styles.loadingContainer]}>
+        <ActivityIndicator size="large" color="#2b8a3e" />
+        <Text style={styles.loadingText}>Loading stations...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -190,5 +219,14 @@ const styles = StyleSheet.create({
   legendText: {
     fontSize: 12,
     color: '#333',
+  },
+  loadingContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 16,
+    fontSize: 16,
+    color: '#666',
   },
 });
