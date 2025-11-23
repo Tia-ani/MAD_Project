@@ -18,6 +18,7 @@ import StationList from './src/screens/StationList';
 import EmergencyScreen from './src/screens/EmergencyScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
+import HomePage from './src/screens/Home';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -113,6 +114,7 @@ function RoutePlannerStack() {
 function AuthStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="HomeIntro" component={HomePage} /> 
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
     </Stack.Navigator>

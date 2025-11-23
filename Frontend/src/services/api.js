@@ -3,9 +3,7 @@
 // Example: 'http://192.168.1.100:5000/api'
 // To find your IP: On Mac/Linux run `ipconfig getifaddr en0` or `ifconfig`
 // On Windows run `ipconfig` and look for IPv4 Address
-const API_BASE_URL = __DEV__ 
-  ? 'http://11.6.2.72:5001/api'  // Development - Using your local IP address (port 5001 to avoid AirPlay conflict)
-  : 'https://your-api-url.com/api';  // Production - Update this with your actual API URL
+const API_BASE_URL = "http://11.6.2.72:5050/api";
 
 // API Service for Stations
 export const stationAPI = {
