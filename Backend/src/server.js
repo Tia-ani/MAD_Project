@@ -6,6 +6,8 @@ import { fileURLToPath } from "url";
 import stationRoutes from "./routes/stationRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import { connectDB } from "./config/db.js";
+import authRoutes from "./routes/authRoutes.js";
+
 
 dotenv.config();
 
@@ -22,6 +24,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 // Routes
 app.use("/api/stations", stationRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("🚆 Inclusive Public Transit Navigator Backend is running!");

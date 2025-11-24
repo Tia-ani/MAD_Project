@@ -112,14 +112,19 @@ function RoutePlannerStack() {
 
 // Auth Stack Navigator (Login/Signup)
 function AuthStack() {
+  const { isAuthenticated } = useAuth();
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="HomeIntro" component={HomePage} /> 
+      {!isAuthenticated && (
+        <Stack.Screen name="HomeIntro" component={HomePage} />
+      )}
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
     </Stack.Navigator>
   );
 }
+
 
 // Main App Stack Navigator (Home + Tabs)
 function MainAppNavigator() {
@@ -227,6 +232,7 @@ function RootNavigator() {
     </NavigationContainer>
   );
 }
+
 
 export default function App() {
   return (

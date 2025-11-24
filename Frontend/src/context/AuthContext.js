@@ -1,45 +1,64 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
+
+const API_BASE_URL = "http://192.168.143.120:5050/api"; // your IP
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const login = (email, password) => {
-    // Simple authentication logic - in production, this would call an API
-    // For now, we'll just check if credentials are provided
-    if (email && password) {
-      setUser({ email });
-      setIsAuthenticated(true);
+  // SIGNUP
+  const signup = async (name, email, password) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        return { success: false, error: data.message };
+      }
+
+      setUser(data.user);
       return { success: true };
+
+    } catch (err) {
+      return { success: false, error: "Network error" };
     }
-    return { success: false, error: 'Please enter both email and password' };
   };
 
-  const signup = (name, email, password, confirmPassword) => {
-    // Simple validation - in production, this would call an API
-    if (!name || !email || !password || !confirmPassword) {
-      return { success: false, error: 'Please fill in all fields' };
+  // LOGIN
+  const login = async (email, password) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        return { success: false, error: data.message };
+      }
+
+      setUser(data.user);
+      return { success: true };
+
+    } catch (err) {
+      return { success: false, error: "Network error" };
     }
-    if (password !== confirmPassword) {
-      return { success: false, error: 'Passwords do not match' };
-    }
-    if (password.length < 6) {
-      return { success: false, error: 'Password must be at least 6 characters' };
-    }
-    setUser({ name, email });
-    setIsAuthenticated(true);
-    return { success: true };
   };
 
   const logout = () => {
     setUser(null);
-    setIsAuthenticated(false);
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, signup, logout }}>
+    <AuthContext.Provider value={{ user, signup, login, logout, isAuthenticated: !!user }}>
       {children}
     </AuthContext.Provider>
   );

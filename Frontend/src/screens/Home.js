@@ -3,9 +3,20 @@ import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import BgImage from '../../assets/background.png';
+import { useAuth } from '../context/AuthContext';   // ✅ ADDED
 
 export default function HomePage() {
   const navigation = useNavigation();
+  const { user } = useAuth();   // ✅ CHECK IF USER LOGGED IN
+
+  // ---------- HANDLE GET STARTED ----------
+  const handleGetStarted = () => {
+    if (user) {
+      navigation.replace("MainTabs");   // 🔥 Already logged in → go inside app
+    } else {
+      navigation.navigate("Signup");    // 🔥 Not logged in → go to signup
+    }
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -55,7 +66,7 @@ export default function HomePage() {
 
           {/* GET STARTED Button */}
           <TouchableOpacity
-            onPress={() => navigation.navigate("Signup")}
+            onPress={handleGetStarted}   // ✅ UPDATED
             style={{
               marginTop: 30,
               backgroundColor: 'white',
