@@ -1,143 +1,434 @@
 export const stationsData = [
-    {
-      id: "pune_jn",
-      name: "Pune Junction Railway Station",
-      coords: { latitude: 18.5286, longitude: 73.8745 },
-      description: "Main railway station with multiple platforms and accessibility features",
-      accessibility: {
-        wheelchair: true,
-        elevators: true,
-        tactilePaving: true,
-        audioAnnouncements: true,
-        brailleSignage: true,
-      },
-      issues: []
+  // ------------------ ORIGINAL 10 ------------------ //
+  {
+    id: "pune_jn",
+    name: "Pune Junction Railway Station",
+    coords: { latitude: 18.5286, longitude: 73.8745 },
+    description:
+      "Main railway station with multiple platforms and accessibility features",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: true,
     },
-    {
-      id: "shivajinagar",
-      name: "Shivajinagar Railway Station",
-      coords: { latitude: 18.5331, longitude: 73.854 },
-      description: "Suburban railway station with basic accessibility features",
-      accessibility: {
-        wheelchair: true,
-        elevators: false,
-        tactilePaving: false,
-        audioAnnouncements: true,
-        brailleSignage: false,
-      },
-      issues: ["Elevator under maintenance", "Poor lighting on platform 2"]
+    issues: [],
+  },
+  {
+    id: "shivajinagar",
+    name: "Shivajinagar Railway Station",
+    coords: { latitude: 18.5331, longitude: 73.854 },
+    description: "Suburban railway station with basic accessibility features",
+    accessibility: {
+      wheelchair: true,
+      elevators: false,
+      tactilePaving: false,
+      audioAnnouncements: true,
+      brailleSignage: false,
     },
-    {
-      id: "swargate_bus",
-      name: "Swargate Bus Terminal",
-      coords: { latitude: 18.5057, longitude: 73.8562 },
-      description: "Main bus terminal with wheelchair accessibility",
-      accessibility: {
-        wheelchair: true,
-        elevators: false,
-        tactilePaving: true,
-        audioAnnouncements: false,
-        brailleSignage: true,
-      },
-      issues: []
+    issues: ["Elevator under maintenance", "Poor lighting on platform 2"],
+  },
+  {
+    id: "swargate_bus",
+    name: "Swargate Bus Terminal",
+    coords: { latitude: 18.5057, longitude: 73.8562 },
+    description:
+      "Main bus terminal with wheelchair accessibility and large passenger capacity",
+    accessibility: {
+      wheelchair: true,
+      elevators: false,
+      tactilePaving: true,
+      audioAnnouncements: false,
+      brailleSignage: true,
     },
-    {
-      id: "pune_metro_civilcourt",
-      name: "Civil Court Metro Station",
-      coords: { latitude: 18.5312, longitude: 73.8585 },
-      description: "Modern metro station with full accessibility features",
-      accessibility: {
-        wheelchair: true,
-        elevators: true,
-        tactilePaving: true,
-        audioAnnouncements: true,
-        brailleSignage: true,
-      },
-      issues: []
+    issues: [],
+  },
+  {
+    id: "pune_metro_civilcourt",
+    name: "Civil Court Metro Station",
+    coords: { latitude: 18.5312, longitude: 73.8585 },
+    description: "Modern metro station with full accessibility features",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: true,
     },
-    {
-      id: "vanaz_metro",
-      name: "Vanaz Metro Station",
-      coords: { latitude: 18.5072, longitude: 73.8073 },
-      description: "Metro station with elevators and tactile features",
-      accessibility: {
-        wheelchair: true,
-        elevators: true,
-        tactilePaving: true,
-        audioAnnouncements: true,
-        brailleSignage: false,
-      },
-      issues: []
+    issues: [],
+  },
+  {
+    id: "vanaz_metro",
+    name: "Vanaz Metro Station",
+    coords: { latitude: 18.5072, longitude: 73.8073 },
+    description: "Metro station with elevators and tactile features",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: false,
     },
-    {
-      id: "pcmc_metro",
-      name: "PCMC Metro Station",
-      coords: { latitude: 18.6281, longitude: 73.7997 },
-      description: "Metro station with accessible toilets and elevators",
-      accessibility: {
-        wheelchair: true,
-        elevators: true,
-        tactilePaving: true,
-        audioAnnouncements: true,
-        brailleSignage: true,
-      },
-      issues: []
+    issues: [],
+  },
+  {
+    id: "pcmc_metro",
+    name: "PCMC Metro Station",
+    coords: { latitude: 18.6281, longitude: 73.7997 },
+    description: "Metro station with accessible toilets and elevators",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: true,
     },
-    {
-      id: "katraj_bus",
-      name: "Katraj Bus Depot",
-      coords: { latitude: 18.4575, longitude: 73.8652 },
-      description: "Bus depot with wheelchair ramps",
-      accessibility: {
-        wheelchair: true,
-        elevators: false,
-        tactilePaving: false,
-        audioAnnouncements: false,
-        brailleSignage: false,
-      },
-      issues: ["Ramp surface damaged"]
+    issues: [],
+  },
+  {
+    id: "katraj_bus",
+    name: "Katraj Bus Depot",
+    coords: { latitude: 18.4575, longitude: 73.8652 },
+    description: "Bus depot with wheelchair ramps",
+    accessibility: {
+      wheelchair: true,
+      elevators: false,
+      tactilePaving: false,
+      audioAnnouncements: false,
+      brailleSignage: false,
     },
-    {
-      id: "airport",
-      name: "Pune International Airport (Lohegaon)",
-      coords: { latitude: 18.5814, longitude: 73.9207 },
-      description: "International airport with comprehensive accessibility features",
-      accessibility: {
-        wheelchair: true,
-        elevators: true,
-        tactilePaving: true,
-        audioAnnouncements: true,
-        brailleSignage: true,
-      },
-      issues: []
+    issues: ["Ramp surface damaged"],
+  },
+  {
+    id: "airport",
+    name: "Pune International Airport (Lohegaon)",
+    coords: { latitude: 18.5814, longitude: 73.9207 },
+    description:
+      "International airport with comprehensive accessibility features",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: true,
     },
-    {
-      id: "hadapsar_bus",
-      name: "Hadapsar Gadital Bus Stand",
-      coords: { latitude: 18.4974, longitude: 73.926 },
-      description: "Bus stand with limited accessibility features",
-      accessibility: {
-        wheelchair: false,
-        elevators: false,
-        tactilePaving: false,
-        audioAnnouncements: false,
-        brailleSignage: false,
-      },
-      issues: ["No wheelchair access", "Poor lighting", "No audio announcements"]
+    issues: [],
+  },
+  {
+    id: "hadapsar_bus",
+    name: "Hadapsar Gadital Bus Stand",
+    coords: { latitude: 18.4974, longitude: 73.926 },
+    description: "Bus stand with limited accessibility features",
+    accessibility: {
+      wheelchair: false,
+      elevators: false,
+      tactilePaving: false,
+      audioAnnouncements: false,
+      brailleSignage: false,
     },
-    {
-      id: "kothrud_bus",
-      name: "Kothrud Depot",
-      coords: { latitude: 18.5077, longitude: 73.8072 },
-      description: "Bus depot with accessible entry ramps",
-      accessibility: {
-        wheelchair: true,
-        elevators: false,
-        tactilePaving: false,
-        audioAnnouncements: false,
-        brailleSignage: false,
-      },
-      issues: []
-    }
-  ];
-  
+    issues: [
+      "No wheelchair access",
+      "Poor lighting",
+      "No audio announcements",
+    ],
+  },
+  {
+    id: "kothrud_bus",
+    name: "Kothrud Depot",
+    coords: { latitude: 18.5077, longitude: 73.8072 },
+    description: "Bus depot with accessible entry ramps",
+    accessibility: {
+      wheelchair: true,
+      elevators: false,
+      tactilePaving: false,
+      audioAnnouncements: false,
+      brailleSignage: false,
+    },
+    issues: [],
+  },
+
+  // ------------------ 20 NEW STATIONS ------------------ //
+
+  // MUMBAI
+  {
+    id: "cstm",
+    name: "Chhatrapati Shivaji Maharaj Terminus",
+    coords: { latitude: 18.944, longitude: 72.8355 },
+    description: "Historic UNESCO site with modern accessibility upgrades",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: true,
+    },
+    issues: [],
+  },
+  {
+    id: "dadar",
+    name: "Dadar Railway Station",
+    coords: { latitude: 19.0186, longitude: 72.8424 },
+    description: "Major interchange for central and western line",
+    accessibility: {
+      wheelchair: true,
+      elevators: false,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: false,
+    },
+    issues: ["Crowded platforms"],
+  },
+  {
+    id: "andheri_metro",
+    name: "Andheri Metro Station",
+    coords: { latitude: 19.1197, longitude: 72.8468 },
+    description: "Metro station with full accessibility",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: true,
+    },
+    issues: [],
+  },
+  {
+    id: "mumbai_airport_t2",
+    name: "Mumbai International Airport T2",
+    coords: { latitude: 19.0896, longitude: 72.8656 },
+    description: "Modern airport with excellent accessibility features",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: true,
+    },
+    issues: [],
+  },
+
+  // DELHI
+  {
+    id: "ndls",
+    name: "New Delhi Railway Station",
+    coords: { latitude: 28.643, longitude: 77.2195 },
+    description: "One of India's busiest stations with accessibility support",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: true,
+    },
+    issues: ["Elevator slow on platform 1"],
+  },
+  {
+    id: "rajiv_chowk",
+    name: "Rajiv Chowk Metro Station",
+    coords: { latitude: 28.6328, longitude: 77.2192 },
+    description: "Delhi’s busiest metro station and interchange hub",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: false,
+    },
+    issues: ["Very crowded during peak hours"],
+  },
+  {
+    id: "delhi_airport",
+    name: "Indira Gandhi International Airport",
+    coords: { latitude: 28.5562, longitude: 77.100 },
+    description: "India’s busiest airport with world-class accessibility",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: true,
+    },
+    issues: [],
+  },
+
+  // BENGALURU
+  {
+    id: "majestic",
+    name: "Kempegowda Bus Station (Majestic)",
+    coords: { latitude: 12.9784, longitude: 77.5722 },
+    description: "Major bus and metro interchange with accessibility",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: false,
+      audioAnnouncements: true,
+      brailleSignage: false,
+    },
+    issues: [],
+  },
+  {
+    id: "kr_puram",
+    name: "KR Puram Railway Station",
+    coords: { latitude: 13.0082, longitude: 77.6803 },
+    description: "Important railway station in Bengaluru",
+    accessibility: {
+      wheelchair: true,
+      elevators: false,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: false,
+    },
+    issues: [],
+  },
+  {
+    id: "blr_airport",
+    name: "Kempegowda International Airport",
+    coords: { latitude: 13.1986, longitude: 77.7066 },
+    description: "Newly expanded airport with full accessibility",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: true,
+    },
+    issues: [],
+  },
+
+  // HYDERABAD
+  {
+    id: "hyb_jn",
+    name: "Hyderabad Deccan (Nampally)",
+    coords: { latitude: 17.391, longitude: 78.467 },
+    description: "Major station serving long-distance trains",
+    accessibility: {
+      wheelchair: true,
+      elevators: false,
+      tactilePaving: false,
+      audioAnnouncements: true,
+      brailleSignage: false,
+    },
+    issues: [],
+  },
+  {
+    id: "hitec_metro",
+    name: "Hitec City Metro Station",
+    coords: { latitude: 17.4477, longitude: 78.3762 },
+    description: "Metro station with modern accessibility features",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: true,
+    },
+    issues: [],
+  },
+
+  // CHENNAI
+  {
+    id: "chennai_central",
+    name: "Chennai Central Railway Station",
+    coords: { latitude: 13.0827, longitude: 80.2757 },
+    description:
+      "Iconic station connecting Chennai with rest of South India",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: true,
+    },
+    issues: [],
+  },
+  {
+    id: "chennai_airport",
+    name: "Chennai International Airport",
+    coords: { latitude: 12.9941, longitude: 80.1709 },
+    description:
+      "Airport with wheelchair support and special assistance counters",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: false,
+    },
+    issues: [],
+  },
+
+  // KOLKATA
+  {
+    id: "howrah",
+    name: "Howrah Junction",
+    coords: { latitude: 22.585, longitude: 88.3426 },
+    description: "India’s oldest and largest railway station",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: false,
+      audioAnnouncements: true,
+      brailleSignage: false,
+    },
+    issues: ["Lift under maintenance at platform 3"],
+  },
+  {
+    id: "esplanade_metro",
+    name: "Esplanade Metro Station",
+    coords: { latitude: 22.5687, longitude: 88.3516 },
+    description: "Important metro interchange point",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: false,
+    },
+    issues: [],
+  },
+
+  // RANDOM IMPORTANT STATIONS
+  {
+    id: "ahmedabad_jn",
+    name: "Ahmedabad Junction",
+    coords: { latitude: 23.026, longitude: 72.601 },
+    description: "Major railway hub of Gujarat",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: false,
+    },
+    issues: [],
+  },
+  {
+    id: "jaipur_jn",
+    name: "Jaipur Junction",
+    coords: { latitude: 26.9196, longitude: 75.7873 },
+    description: "Rajasthan's busiest station",
+    accessibility: {
+      wheelchair: true,
+      elevators: true,
+      tactilePaving: false,
+      audioAnnouncements: true,
+      brailleSignage: false,
+    },
+    issues: [],
+  },
+  {
+    id: "lucknow_charbagh",
+    name: "Lucknow Charbagh Railway Station",
+    coords: { latitude: 26.8381, longitude: 80.9249 },
+    description: "Architectural landmark with essential accessibility",
+    accessibility: {
+      wheelchair: true,
+      elevators: false,
+      tactilePaving: true,
+      audioAnnouncements: true,
+      brailleSignage: false,
+    },
+    issues: [],
+  },
+];

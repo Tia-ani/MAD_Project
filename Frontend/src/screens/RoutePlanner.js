@@ -4,6 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { AccessibilityContext } from '../context/AccessibilityContext';
 import { stationsData } from '../data/stationsData';
 import { getStationsWithFallback } from '../services/api';
+import RNPickerSelect from "react-native-picker-select";
+
 
 export default function RoutePlanner({ route }) {
   const [start, setStart] = useState('');
@@ -18,6 +20,13 @@ export default function RoutePlanner({ route }) {
   const [stations, setStations] = useState([]);
   const [loading, setLoading] = useState(true);
   const { settings } = useContext(AccessibilityContext);
+
+  // Convert stations to dropdown-friendly items
+  const stationOptions = stations.map((s) => ({
+    label: s.name,
+    value: s.name,
+  }));
+
 
   useEffect(() => {
     loadStations();
@@ -162,37 +171,58 @@ export default function RoutePlanner({ route }) {
       </Text>
 
       {/* Station Inputs */}
+      {/* FROM Station */}
       <View style={styles.inputContainer}>
         <Text style={[styles.label, settings.largeText && styles.largeLabel]}>From:</Text>
-        <TextInput
-          style={[
-            styles.input,
-            settings.largeText && styles.largeInput,
-            settings.highContrast && styles.highContrastInput
-          ]}
-          placeholder="Enter start station (e.g., Pune Junction)"
+
+        <RNPickerSelect
+          onValueChange={(value) => setStart(value)}
+          items={stationOptions}
+          placeholder={{ label: "Select Start Station", value: null }}
           value={start}
-          onChangeText={setStart}
-          accessible={true}
-          accessibilityLabel="Enter starting station name"
+          style={{
+            inputIOS: [
+              styles.input,
+              settings.largeText && styles.largeInput,
+              settings.highContrast && styles.highContrastInput
+            ],
+            inputAndroid: [
+              styles.input,
+              settings.largeText && styles.largeInput,
+              settings.highContrast && styles.highContrastInput
+            ],
+            placeholder: { color: "#888" }
+          }}
+          useNativeAndroidPickerStyle={false}
         />
       </View>
 
+      {/* TO Station */}
       <View style={styles.inputContainer}>
         <Text style={[styles.label, settings.largeText && styles.largeLabel]}>To:</Text>
-        <TextInput
-          style={[
-            styles.input,
-            settings.largeText && styles.largeInput,
-            settings.highContrast && styles.highContrastInput
-          ]}
-          placeholder="Enter destination station (e.g., Swargate)"
+
+        <RNPickerSelect
+          onValueChange={(value) => setEnd(value)}
+          items={stationOptions}
+          placeholder={{ label: "Select Destination Station", value: null }}
           value={end}
-          onChangeText={setEnd}
-          accessible={true}
-          accessibilityLabel="Enter destination station name"
+          style={{
+            inputIOS: [
+              styles.input,
+              settings.largeText && styles.largeInput,
+              settings.highContrast && styles.highContrastInput
+            ],
+            inputAndroid: [
+              styles.input,
+              settings.largeText && styles.largeInput,
+              settings.highContrast && styles.highContrastInput
+            ],
+            placeholder: { color: "#888" }
+          }}
+          useNativeAndroidPickerStyle={false}
         />
       </View>
+
 
       {/* Accessibility Filters */}
       <Text style={[styles.sectionTitle, settings.largeText && styles.largeSectionTitle]}>
