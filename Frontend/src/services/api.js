@@ -3,7 +3,8 @@
 // Example: 'http://192.168.1.100:5000/api'
 // To find your IP: On Mac/Linux run `ipconfig getifaddr en0` or `ifconfig`
 // On Windows run `ipconfig` and look for IPv4 Address
-const API_BASE_URL = "http://192.168.143.120:5050/api";
+const API_BASE_URL = "https://mad-project-ryls.onrender.com/api";
+
 
 // API Service for Stations
 export const stationAPI = {

@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 
 export const AuthContext = createContext();
 
-const API_BASE_URL = "http://192.168.143.120:5050/api"; // your IP
+export const API_BASE_URL = "https://mad-project-ryls.onrender.com/api";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);

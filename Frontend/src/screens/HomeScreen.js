@@ -88,7 +88,7 @@ export default function HomeScreen({ navigation }) {
             title="Emergency"
             description="Get help quickly"
             color="#dc3545"
-            onPress={() => navigation.navigate('Settings')}
+            onPress={() => navigation.navigate('Emergency')}
           />
         </View>
       </View>
@@ -123,7 +123,7 @@ export default function HomeScreen({ navigation }) {
       {/* Stats */}
       <View style={styles.statsContainer}>
         <View style={styles.statItem}>
-          <Text style={[styles.statNumber, settings.largeText && styles.largeStatNumber]}>12+</Text>
+          <Text style={[styles.statNumber, settings.largeText && styles.largeStatNumber]}>30+</Text>
           <Text style={[styles.statLabel, settings.largeText && styles.largeStatLabel]}>Stations</Text>
         </View>
         <View style={styles.statDivider} />
