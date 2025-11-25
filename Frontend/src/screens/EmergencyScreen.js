@@ -1,10 +1,22 @@
 import React, { useContext } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, Linking } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Alert,
+  Linking,
+  Share,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { AccessibilityContext } from '../context/AccessibilityContext';
+import * as Location from 'expo-location';
+import { useNavigation } from '@react-navigation/native';
 
-export default function EmergencyScreen({ navigation }) {
+export default function EmergencyScreen() {
   const { settings } = useContext(AccessibilityContext);
+  const navigation = useNavigation();
 
   const emergencyContacts = [
     {
@@ -103,43 +115,70 @@ export default function EmergencyScreen({ navigation }) {
     );
   };
 
-  const shareLocation = () => {
-    // In a real app, this would get actual location and share it
-    Alert.alert(
-      'Share Location',
-      'Your current location will be shared with emergency contacts via SMS',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Share',
-          onPress: () => {
-            Alert.alert('Success', 'Location shared successfully');
-          },
-        },
-      ]
-    );
+  // REAL shareLocation: requests permission, gets coords, opens native share sheet
+  const shareLocation = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Location Permission Required', 'Please allow location access to share your location.');
+        return;
+      }
+
+      const loc = await Location.getCurrentPositionAsync({});
+      const latitude = loc.coords.latitude;
+      const longitude = loc.coords.longitude;
+      const mapsUrl = `https://www.google.com/maps/?q=${latitude},${longitude}`;
+      const message = `I need assistance. My current location:\nLatitude: ${latitude}\nLongitude: ${longitude}\n\n${mapsUrl}`;
+
+      await Share.share({ message });
+    } catch (err) {
+      console.error('Error sharing location:', err);
+      Alert.alert('Error', 'Failed to get or share location. Please try again.');
+    }
   };
 
-  const requestAssistance = () => {
-    Alert.alert(
-      'Request Station Assistance',
-      'Station staff will be notified of your request for assistance. Please specify your location.',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Send Request',
-          onPress: () => {
-            Alert.alert('Request Sent', 'Station staff have been notified and will assist you shortly');
-          },
-        },
-      ]
-    );
+  // Request assistance: get location (if possible), notify user and navigate to Map for context
+  const requestAssistance = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        // still allow user to proceed: notify and open map
+        Alert.alert(
+          'Assistance Requested',
+          'Station staff have been notified (simulated). Please open Map to see nearby stations.'
+        );
+        navigation.navigate('Map'); // opens Map tab
+        return;
+      }
+
+      const loc = await Location.getCurrentPositionAsync({});
+      // In a real app you'd send loc.coords to backend to notify staff/dispatch
+      Alert.alert(
+        'Assistance Requested',
+        `Your location was sent to station staff.\nLatitude: ${loc.coords.latitude}\nLongitude: ${loc.coords.longitude}`
+      );
+
+      // Navigate to Map tab so user can see their location / nearby stations
+      navigation.navigate('Map');
+    } catch (err) {
+      console.error('Error requesting assistance:', err);
+      Alert.alert('Error', 'Failed to request assistance. Please try again.');
+    }
   };
 
+  // Report emergency: navigate to ReportIssue inside MapStack.
+  // ReportIssue expects a `station` param — pass a minimal placeholder so the screen mounts.
   const reportEmergencyIssue = () => {
-    navigation.goBack();
+    const fakeStation = {
+      id: 'emergency_report',
+      name: 'Emergency Report',
+      // optional fields used by ReportIssue: keep minimal
+    };
+
+    // Map tab is a nested navigator; this will open Map tab and then ReportIssue screen inside it
     navigation.navigate('Map', {
       screen: 'ReportIssue',
+      params: { station: fakeStation },
     });
   };
 

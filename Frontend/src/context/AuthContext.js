@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContext = createContext();
 
@@ -6,6 +7,20 @@ export const API_BASE_URL = "https://mad-project-ryls.onrender.com/api";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+
+  // Load user from storage on startup
+  useEffect(() => {
+    const loadUser = async () => {
+      const storedUser = await AsyncStorage.getItem("user");
+      if (storedUser) setUser(JSON.parse(storedUser));
+    };
+    loadUser();
+  }, []);
+
+  const saveUser = async (userData) => {
+    setUser(userData);
+    await AsyncStorage.setItem("user", JSON.stringify(userData));
+  };
 
   // SIGNUP
   const signup = async (name, email, password) => {
@@ -18,13 +33,11 @@ export function AuthProvider({ children }) {
 
       const data = await res.json();
 
-      if (!res.ok) {
-        return { success: false, error: data.message };
-      }
+      if (!res.ok) return { success: false, error: data.message };
 
-      setUser(data.user);
+      await saveUser(data.user);
+
       return { success: true };
-
     } catch (err) {
       return { success: false, error: "Network error" };
     }
@@ -41,20 +54,19 @@ export function AuthProvider({ children }) {
 
       const data = await res.json();
 
-      if (!res.ok) {
-        return { success: false, error: data.message };
-      }
+      if (!res.ok) return { success: false, error: data.message };
 
-      setUser(data.user);
+      await saveUser(data.user);
+
       return { success: true };
-
     } catch (err) {
       return { success: false, error: "Network error" };
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     setUser(null);
+    await AsyncStorage.removeItem("user");
   };
 
   return (
