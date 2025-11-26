@@ -2,19 +2,18 @@ import React from 'react';
 import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import BgImage from '../../assets/background.png';
-import { useAuth } from '../context/AuthContext';   // ✅ ADDED
+import BgImage from '../../assets/background_clean.png';
+import { useAuth } from '../context/AuthContext';   
 
 export default function HomePage() {
   const navigation = useNavigation();
-  const { user } = useAuth();   // ✅ CHECK IF USER LOGGED IN
+  const { user } = useAuth();   
 
-  // ---------- HANDLE GET STARTED ----------
   const handleGetStarted = () => {
     if (user) {
-      navigation.replace("MainTabs");   // 🔥 Already logged in → go inside app
+      navigation.replace("MainTabs");  
     } else {
-      navigation.navigate("Signup");    // 🔥 Not logged in → go to signup
+      navigation.navigate("Signup");    
     }
   };
 
@@ -66,7 +65,7 @@ export default function HomePage() {
 
           {/* GET STARTED Button */}
           <TouchableOpacity
-            onPress={handleGetStarted}   // ✅ UPDATED
+            onPress={handleGetStarted} 
             style={{
               marginTop: 30,
               backgroundColor: 'white',

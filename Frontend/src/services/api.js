@@ -1,8 +1,3 @@
-// API Configuration
-// For mobile devices, use your computer's IP address instead of localhost
-// Example: 'http://192.168.1.100:5000/api'
-// To find your IP: On Mac/Linux run `ipconfig getifaddr en0` or `ifconfig`
-// On Windows run `ipconfig` and look for IPv4 Address
 const API_BASE_URL = "https://mad-project-ryls.onrender.com/api";
 
 
@@ -62,7 +57,6 @@ export const stationAPI = {
 
       const response = await fetch(`${API_BASE_URL}/stations/${stationId}/report`, {
         method: 'POST',
-        // Don't set Content-Type - React Native will set it automatically with boundary
         body: formData,
       });
       
@@ -72,7 +66,6 @@ export const stationAPI = {
           const errorData = await response.json();
           errorMessage = errorData.message || errorData.error || errorMessage;
         } catch (e) {
-          // If response is not JSON, use status text
           errorMessage = response.statusText || errorMessage;
         }
         throw new Error(errorMessage);
@@ -82,7 +75,6 @@ export const stationAPI = {
       return data;
     } catch (error) {
       console.error('Error reporting issue:', error);
-      // Provide more helpful error messages
       if (error.message.includes('Network request failed')) {
         throw new Error('Cannot connect to server. Please make sure the backend is running and check your network connection.');
       }

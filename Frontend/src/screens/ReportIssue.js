@@ -51,7 +51,7 @@ export default function ReportIssue({ route, navigation }) {
     }
 
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images, // ✔️ Correct
+      mediaTypes: ImagePicker.MediaTypeOptions.Images, 
       allowsEditing: true,
       aspect: [4, 3],
       quality: 0.8,
@@ -111,7 +111,6 @@ export default function ReportIssue({ route, navigation }) {
       // SEND TO STATION API
       await stationAPI.reportIssue(station.id, issueText, severity, image);
 
-      // NEW — Add to user profile properly
       if (user?.email) {
         try {
           await profileAPI.addReportedIssue(user.email, {
@@ -270,7 +269,6 @@ export default function ReportIssue({ route, navigation }) {
   );
 }
 
-/* ---------------- STYLES (unchanged UI) ---------------- */
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, backgroundColor: 'white' },
   title: { fontSize: 24, fontWeight: 'bold', marginBottom: 8, color: '#333' },

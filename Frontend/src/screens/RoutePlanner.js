@@ -21,7 +21,6 @@ export default function RoutePlanner({ route }) {
   const [loading, setLoading] = useState(true);
   const { settings } = useContext(AccessibilityContext);
 
-  // Convert stations to dropdown-friendly items
   const stationOptions = stations.map((s) => ({
     label: s.name,
     value: s.name,
