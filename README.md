@@ -2,9 +2,11 @@
 
 ### An accessible, community-driven transit companion for everyone.
 
+**[Watch the Demo](https://drive.google.com/file/d/1ltzpvMX8DDlau3QawZp1RcCZYVpBELZZ/view?usp=sharing)**
+
 ---
 
-## 👩‍💻 Project Details
+## Project Details
 
 **Project Title:** Inclusive Public Transit Navigator  
 **Author:** Anishka Khurana  
@@ -12,7 +14,7 @@
 
 ---
 
-## 🧩 Problem Statement
+## Problem Statement
 
 Public transportation systems often lack reliable, real-time information regarding accessibility for people with disabilities. Issues such as **broken elevators, blocked ramps, or missing audio cues** make daily commutes difficult or even impossible for many users.
 
@@ -20,7 +22,7 @@ This project aims to bridge this **information gap**, enabling individuals with 
 
 ---
 
-## 💡 Proposed Solution
+## Proposed Solution
 
 **Inclusive Public Transit Navigator** is a mobile application designed to provide **real-time, crowd-sourced accessibility information** for public transit systems.  
 Users can:
@@ -33,7 +35,7 @@ The system fosters a **community-driven feedback loop**, ensuring information st
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 ### 🚆 Accessible Route Planner
 Find routes optimized for accessibility needs such as ramps, elevators, and tactile pavements.
