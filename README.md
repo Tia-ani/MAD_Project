@@ -37,27 +37,27 @@ The system fosters a **community-driven feedback loop**, ensuring information st
 
 ## Key Features
 
-### 🚆 Accessible Route Planner
+### Accessible Route Planner
 Find routes optimized for accessibility needs such as ramps, elevators, and tactile pavements.
 
-### 📢 Real-Time Accessibility Reporting
+### Real-Time Accessibility Reporting
 Easily report issues (e.g., broken elevators, blocked ramps) that others can see immediately.
 
-### 👥 Crowd-Sourced Updates
+### Crowd-Sourced Updates
 Get real-time alerts and notifications about accessibility problems reported by users.
 
-### 🗣️ Audio-Assisted Navigation
+### Audio-Assisted Navigation
 Voice-guided directions and descriptions of stations for visually impaired users.
 
-### 🏙️ Station & Vehicle Details
+### Station & Vehicle Details
 Detailed information on each station — accessibility features, current issues, and photos.
 
-### 🚨 Emergency Contact Integration
+### Emergency Contact Integration
 Quick-access emergency contact button to connect with transit authorities or emergency services.
 
 ---
 
-## 🧑‍🎯 Target Audience
+## Target Audience
 
 - People with disabilities  
 - Senior citizens  
@@ -67,7 +67,7 @@ Quick-access emergency contact button to connect with transit authorities or eme
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 | Layer | Technology |
 |-------|-------------|
@@ -81,7 +81,7 @@ Quick-access emergency contact button to connect with transit authorities or eme
 
 ---
 
-## 🎯 Expected Outcome
+## Expected Outcome
 
 A fully functional and user-friendly mobile application that:
 - Provides **accurate, real-time accessibility data**.
@@ -91,7 +91,7 @@ A fully functional and user-friendly mobile application that:
 
 ---
 
-## 📆 Development Timeline
+## Development Timeline
 
 | Phase | Duration | Milestones |
 |--------|-----------|------------|
@@ -102,9 +102,9 @@ A fully functional and user-friendly mobile application that:
 
 ---
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 
-### 1️⃣ Backend Setup
+### Backend Setup
 ```bash
 cd Backend
 npm install
